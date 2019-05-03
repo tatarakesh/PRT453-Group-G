@@ -1,1 +1,20 @@
+class ReportTemplate
+  def generate_report!
+    get_employees_worked_time
+    format_report
+    send_to_stakeholders
+  end
+
+  def get_employees_worked_time
+    # Retrieve this info from the database
+  end
+
+  def format_report
+    raise NotImplementedError
+  end
+
+  def send_to_stakeholders
+    # Call send email routine
+  end
+end
 
