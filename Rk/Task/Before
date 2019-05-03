@@ -4,6 +4,7 @@ class ReportTemplate
     format_report
     send_to_stakeholders
   end
+
   def get_employees_worked_time
     # Retrieve this info from the database
   end
