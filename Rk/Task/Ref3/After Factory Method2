@@ -1,0 +1,81 @@
+Applying Factory Method:
+
+package factory_method.example.factory;
+
+import factory_method.example.buttons.Button;
+
+public abstract class Dialog {
+
+    public void renderWindow() {
+        // ... other code ...
+
+        Button okButton = createButton();
+        okButton.render();
+    }
+
+    public abstract Button createButton();
+}
+
+
+package factory_method.example.factory;
+
+import factory_method.example.buttons.Button;
+import factory_method.example.buttons.HtmlButton;
+
+/**
+ * HTML Dialog will produce HTML buttons.
+ */
+public class HtmlDialog extends Dialog {
+
+    @Override
+    public Button createButton() {
+        return new HtmlButton();
+    }
+}
+
+
+package factory_method.example.factory;
+
+import factory_method.example.buttons.Button;
+import factory_method.example.buttons.WindowsButton;
+
+/**
+ * Windows Dialog will produce Windows buttons.
+ */
+public class WindowsDialog extends Dialog {
+
+    @Override
+    public Button createButton() {
+        return new WindowsButton();
+    }
+}
+
+package factory_method.example;
+
+import factory_method.example.factory.Dialog;
+import factory_method.example.factory.HtmlDialog;
+import factory_method.example.factory.WindowsDialog;
+
+/**
+ * Demo class. Everything comes together here.
+ */
+public class Demo {
+    private static Dialog dialog;
+
+    public static void main(String[] args) {
+        configure();
+        runBusinessLogic();
+    }
+
+    static void configure() {
+        if (System.getProperty("os.name").equals("Windows 10")) {
+            dialog = new WindowsDialog();
+        } else {
+            dialog = new HtmlDialog();
+        }
+    }
+
+    static void runBusinessLogic() {
+        dialog.renderWindow();
+    }
+}
